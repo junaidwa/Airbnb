@@ -1,0 +1,18 @@
+<%- include('./includes/navbar.ejs') %>
+
+<div class="error-container">
+    <div class="error-content">
+        <h1><%= err.statusCode %></h1>
+        <h2>Oops! Something went wrong</h2>
+        <p class="error-message"><%= err.message %></p>
+        <% if (process.env.NODE_ENV !== "production") { %>
+            <p class="error-stack"><%= err.stack %></p>
+        <% } %>
+        <div class="error-actions">
+            <a href="/" class="btn btn-primary">Go Home</a>
+            <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<%- include('./includes/footer.ejs') %> 

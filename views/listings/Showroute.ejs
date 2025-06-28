@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate') %>
+<div class="detail-container">
+    <% if (foundListing.image) { %>
+        <img src="<%= foundListing.image %>" alt="<%= foundListing.title %>" class="detail-image">
+    <% } %>
+    
+    <div class="detail-header">
+        <h1 class="detail-title"><%= foundListing.title %></h1>
+        <div class="detail-location">
+            📍 <%= foundListing.location %>
+        </div>
+        <div class="detail-price">
+            $<%= foundListing.price %> <span class="text-muted">per night</span>
+        </div>
+    </div>
+
+    <div class="detail-description">
+        <%= foundListing.description %>
+    </div>
+
+    <div class="card-buttons">
+        <a href="/listings" class="btn btn-secondary">← Back to Listings</a>
+        <a href="/listings/<%= foundListing._id %>/edit" class="btn btn-primary">Edit Listing</a>
+        <form action="/Delete/<%= foundListing._id %>?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-danger">Delete Listing</button>
+        </form>
+    </div>
+    <br>
+  <h3>Leave a review</h3>
+<br>
+<form action="/listings/<%= foundListing._id %>/reviews" method="POST">
+    <div>
+        <label for="rating">Rating</label>
+        <input type="range" id="rating" name="review[rating]" min="1" max="5">
+    </div>
+    <br>
+    <div>
+        <label for="content">Review</label>
+        <textarea id="content" name="review[comment]" rows="4" cols="50" required placeholder="Write your review here..."></textarea>
+    </div>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+    </form>
+    <h1>All Reviews</h1>
+    <ul>
+    <% if (foundListing.review && foundListing.review.length > 0) { %>
+        <% foundListing.review.forEach(review => { %>
+            <li>
+                <strong>Rating:</strong> <%= review.rating %> <br>
+                <strong>Comment:</strong> <%= review.comment %>
+                <form action="/listings/<%= foundListing._id %>/reviews/<%= review._id %>"?_method="DELETE" method="POST" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+    <% } else { %>
+        <p>No reviews yet.</p>
+    <% } %>
+
+</div>
