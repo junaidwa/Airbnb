@@ -21,7 +21,7 @@
     <div class="card-buttons">
         <a href="/listings" class="btn btn-secondary">← Back to Listings</a>
         <a href="/listings/<%= foundListing._id %>/edit" class="btn btn-primary">Edit Listing</a>
-        <form action="/Delete/<%= foundListing._id %>?_method=DELETE" method="POST" style="display: inline;">
+        <form action="/listings/<%= foundListing._id %>?_method=DELETE" method="POST" style="display: inline;">
             <button class="btn btn-danger">Delete Listing</button>
         </form>
     </div>
