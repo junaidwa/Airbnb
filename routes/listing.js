@@ -48,14 +48,15 @@ router.get("/:id", async (req, res) => {
 });
 
 
-
-
-//Add a new Listings
-router.post('/listing', validateListing, WrapAsync(async (req, res) => {
+router.post('/', validateListing, WrapAsync(async (req, res) => {
     const newListing = new listing(req.body.listing);
     await newListing.save();
     res.redirect('/listings');
 }));
+
+
+
+
 
 
 

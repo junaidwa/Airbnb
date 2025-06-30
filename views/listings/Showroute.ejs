@@ -50,9 +50,22 @@
             <li>
                 <strong>Rating:</strong> <%= review.rating %> <br>
                 <strong>Comment:</strong> <%= review.comment %>
-                <form action="/listings/<%= foundListing._id %>/reviews/<%= review._id %>"?_method="DELETE" method="POST" style="display: inline;">
-                    <button type="submit">Delete</button>
-                </form>
+                <br>
+                <% const formattedDate = new Date(review.createdAt).toLocaleString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+}); %>
+
+<strong>Created at:</strong> <%= formattedDate %>
+<br>
+<br>
+  <form action="/listings/<%= foundListing._id %>/reviews/<%= review._id %>"?_method="DELETE" method="POST" style="display: inline;">
+         <button type="submit">Delete</button>
+   </form>
             </li>
         <% }) %>
     </ul>

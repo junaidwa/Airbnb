@@ -6,7 +6,7 @@
         <form method="POST" action="/listings/<%= foundListing._id %>" novalidate>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" name="listing[title]" id="title" value="<%= foundListing.title %>" required>
+                <input type="text" class="form-control" name="listing[title]" id="title" value="<%= foundListing.title %>">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
@@ -14,18 +14,18 @@
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image URL</label>
-                <input type="url" class="form-control" name="listing[image]" id="image" value="<%= foundListing.image %>" required>
+                <input type="url" class="form-control" name="listing[image]" id="image" value="<%= foundListing.image %>" >
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" name="listing[price]" id="price" value="<%= foundListing.price %>" required min="0">
+                    <input  class="form-control" name="listing[price]" id="price" value="<%= foundListing.price %>"  min="0">
                 </div>
             </div>
             <div class="mb-3">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" name="listing[location]" id="location" value="<%= foundListing.location %>" required>
+                <input type="text" class="form-control" name="listing[location]" id="location" value="<%= foundListing.location %>" >
             </div>
             <button type="submit" class="btn btn-dark">Update Listing</button>
             <a href="/listings/<%= foundListing._id %>" class="btn btn-secondary">Cancel</a>

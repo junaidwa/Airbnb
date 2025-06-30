@@ -1,15 +1,16 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const listing = require("./models/listing");
 const review = require("./models/review");
 const path = require("path");
 const ejsmate = require("ejs-mate");
 const { listingSchema, ReviewSchema } = require("./Schema.js");
-const ExpressError = require("./utils/ExpressError");
 const WrapAsync = require("./utils/WrapAsync");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const ExpressError = require("./utils/ExpressError");
+
+
 
 app.use(cookieParser("SecretCodes")); // Middleware to parse cookies
 
@@ -45,13 +46,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to Wanderlust API");
 });
 
-
 //Express Sesssion
-
 
 app.use(
   session({
-    secret: "mysupersecretstring"
+    secret: "mysupersecretstring",
   })
 );
 
@@ -59,15 +58,7 @@ app.get("/test", (req, res) => {
   res.send("test successful!");
 });
 
-
-
-
-
-
-
-
-
-
+//Add a new Listings
 
 // app.get("/getcookies", (req, res) => {
 //   res.cookie("greets", "Hello, World!");
@@ -106,6 +97,14 @@ app.get("/test", (req, res) => {
 // });
 
 // Error-handling middleware
+
+// app.all('*', (req, res, next) => {
+// next(new ExpressError(404,"Page Not Found")); // Pass a new error to the next middleware
+// });
+
+
+
+
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = "Something went wrong!" } = err;
   if (!err.message) err.message = "Oh No, Something Went Wrong!";
