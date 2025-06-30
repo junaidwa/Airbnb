@@ -32,9 +32,6 @@ app.use(methodOverride("_method"));
 
 app.use(flash()); // Use flash for temporary messages
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Wanderlust API");
-});
 
 //Express Sesssion
 app.use(
@@ -52,8 +49,16 @@ app.use(
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success"); // Make success messages available in views
+  res.locals.error = req.flash("error"); // Make success messages available in views
   next();
 }); // Middleware to set flash messages
+
+
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Wanderlust API");
+});
+
 
 //Create Fake User
 app.get("/DemoUser", async (req, res) => {
@@ -66,9 +71,6 @@ app.get("/DemoUser", async (req, res) => {
   res.send(UserData);
 });
 
-app.use("/listings", listingRoute); // Use the listing routes
-app.use("/listings/:id/reviews", reviewsRoute); // Use the review routes, with id from listing
-app.use('/',userRouter);
 
 // Passport Configuration
 app.use(passport.initialize()); // Initialize passport
@@ -90,6 +92,14 @@ main()
 async function main() {
   await mongoose.connect(Mongo_URL);
 }
+
+
+app.use("/listings", listingRoute); // Use the listing routes
+app.use("/listings/:id/reviews", reviewsRoute); // Use the review routes, with id from listing
+app.use('/',userRouter);
+
+
+
 
 //flash message
 // app.use((req, res, next) => {

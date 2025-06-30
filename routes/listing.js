@@ -6,6 +6,9 @@ const ExpressError = require("../utils/ExpressError");
 const WrapAsync = require("../utils/WrapAsync");
 const { listingSchema} = require("../Schema.js");
 const mongoose = require("mongoose");
+const passport = require("passport");
+const {IsLoggedIn}=require('../middleware.js')
+
 
 
 
@@ -28,7 +31,9 @@ router.get("/", async (req, res) => {
 });
 
 // Create a new listing route
-router.get("/new", (req, res) => {
+router.get("/new",IsLoggedIn, (req, res) => {
+  console.log(req.user)
+ 
   res.render("listings/new.ejs");
 });
 // Show Route
@@ -62,7 +67,7 @@ router.post('/', validateListing, WrapAsync(async (req, res) => {
 
 
 //Edit Route
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit",IsLoggedIn, async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -92,7 +97,7 @@ router.post(
 );
 
 //Delete  Route
-router.delete("/:id", (req, res) => {
+router.delete("/:id",IsLoggedIn, (req, res) => {
   const { id } = req.params;
   listing
     .findByIdAndDelete(id)
