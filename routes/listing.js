@@ -51,6 +51,7 @@ router.get("/:id", async (req, res) => {
 router.post('/', validateListing, WrapAsync(async (req, res) => {
     const newListing = new listing(req.body.listing);
     await newListing.save();
+    req.flash('success', 'New listing created successfully!');
     res.redirect('/listings');
 }));
 
@@ -73,6 +74,8 @@ router.get("/:id/edit", async (req, res) => {
     return res.status(404).send("Listing not found");
   }
 
+  
+
   res.render("listings/edit.ejs", { foundListing });
 });
 
@@ -83,6 +86,7 @@ router.post(
   WrapAsync(async (req, res) => {
     const { id } = req.params;
     await listing.findByIdAndUpdate(id, { ...req.body.listing });
+      req.flash('success', 'Listing Updated successfully!');
     res.redirect(`/listings/${id}`);
   })
 );
@@ -93,6 +97,7 @@ router.delete("/:id", (req, res) => {
   listing
     .findByIdAndDelete(id)
     .then(() => {
+        req.flash('success', 'Listing Deleted successfully!');
       res.redirect("/listings");
       console.log("Listing deleted successfully");
     })

@@ -1,34 +1,25 @@
-<%- layout('/layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %>
+<body>
+    <form action="/listings/<%= foundListing._id %>?_method=PUT" method="POST">
+        <h1>Edit Listing</h1>
 
-<div class="row">
-    <div class="col-8 offset-2">
-        <h3>Edit Listing</h3>
-        <form method="POST" action="/listings/<%= foundListing._id %>" novalidate>
-            <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" name="listing[title]" id="title" value="<%= foundListing.title %>">
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" name="listing[description]" id="description" required><%= foundListing.description %></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="image" class="form-label">Image URL</label>
-                <input type="url" class="form-control" name="listing[image]" id="image" value="<%= foundListing.image %>" >
-            </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input  class="form-control" name="listing[price]" id="price" value="<%= foundListing.price %>"  min="0">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" name="listing[location]" id="location" value="<%= foundListing.location %>" >
-            </div>
-            <button type="submit" class="btn btn-dark">Update Listing</button>
-            <a href="/listings/<%= foundListing._id %>" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
-</div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="<%= foundListing.title %>" required>
+        <br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required><%= foundListing.description %></textarea>
+        <br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="<%= foundListing.price %>" required>
+        <br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="<%= foundListing.location %>" required>
+        <br><br>
+
+        <button type="submit">Update Listing</button>
+    </form>
+    
+</body>

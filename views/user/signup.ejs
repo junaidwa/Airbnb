@@ -1,0 +1,20 @@
+<% layout('layouts/boilerplate') %>
+
+    <form action="http://localhost:3000/SignUp" method="POST">
+        <h1>SignUp</h1>
+
+        <label for="Username">Username</label>
+        <input type="text" id="username" name="username"  required>
+        <br><br>
+
+        <label for="email">Email:</label>
+        <textarea id="email" name="email" required></textarea>
+        <br><br>
+
+        <label for="password">password:</label>
+        <input type="password" id="password" name="password"  required>
+        <br><br>
+
+       
+        <button type="submit">SignUp</button>
+    </form>
