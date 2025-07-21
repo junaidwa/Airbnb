@@ -29,14 +29,17 @@ module.exports.showListingInfo = async (req, res) => {
   };
 
 module.exports.createListing = async (req, res) => {
-  let url=req.find.path;
-  let filename=req.file.filename;
-
-
   const newListing = new listing(req.body.listing);
-  newListing.owner = req.user._id; // Set the owner to the current user
-  newListing.image = { url, filename }; // Set the image URL and filename
-  console.log("USER ID", req.user._id);
+  newListing.owner = req.user._id;
+  
+  // Handle image upload
+  if (req.file) {
+    newListing.image = {
+      url: req.file.path,
+      filename: req.file.filename
+    };
+  }
+
   await newListing.save();
   req.flash("success", "New listing created successfully!");
   res.redirect("/listings");

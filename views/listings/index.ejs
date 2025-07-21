@@ -6,7 +6,7 @@
     <div class="listings-grid">
         <% for(let Listings of Alllistings) { %>
             <div class="card">
-                <img src="<%= Listings.image %>" class="card-img-top" alt="<%= Listings.title %>">
+                <img src="<%= Listings.image.url %>" class="card-img-top" alt="<%= Listings.title %>">
                 <div class="card-body">
                     <h2 class="card-title"><%= Listings.title %></h2>
                     <p class="card-text"><%= Listings.description %></p>
