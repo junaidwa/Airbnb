@@ -6,15 +6,15 @@
         <form method="POST" action="/listings" novalidate>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" name="listing[title]" id="title" required>
+                <input type="text" class="form-control" name="listing[title]" id="title" >
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" name="listing[description]" id="description" required></textarea>
+                <textarea class="form-control" name="listing[description]" id="description" ></textarea>
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Image URL</label>
-                <input type="url" class="form-control" name="listing[image]" id="image" required>
+                <input type="url" class="form-control" name="listing[image]" id="image">
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
@@ -25,7 +25,7 @@
             </div>
             <div class="mb-3">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" name="listing[location]" id="location" required>
+                <input type="text" class="form-control" name="listing[location]" id="location" >
             </div>
             <button type="submit" class="btn btn-dark">Add Listing</button>
         </form>

@@ -6,6 +6,9 @@
     
     <div class="detail-header">
         <h1 class="detail-title"><%= foundListing.title %></h1>
+        <div class="detail-owner">
+            Owned by:   <%= foundListing.owner?.username || 'Anonymous' %>
+        </div>
         <div class="detail-location">
             📍 <%= foundListing.location %>
         </div>
@@ -20,12 +23,17 @@
 
     <div class="card-buttons">
         <a href="/listings" class="btn btn-secondary">← Back to Listings</a>
-        <a href="/listings/<%= foundListing._id %>/edit" class="btn btn-primary">Edit Listing</a>
-        <form action="/listings/<%= foundListing._id %>?_method=DELETE" method="POST" style="display: inline;">
-            <button class="btn btn-danger">Delete Listing</button>
-        </form>
+
+        <% if(CurrentUser && CurrentUser._id.equals(foundListing.owner._id)) {%>
+            <a href="/listings/<%= foundListing._id %>/edit" class="btn btn-primary">Edit Listing</a>
+            <form action="/listings/<%= foundListing._id %>?_method=DELETE" method="POST" style="display: inline;">
+                <button class="btn btn-danger">Delete Listing</button>
+            </form>
+            <% } %>
+ 
     </div>
     <br>
+    <% if(CurrentUser) {%>
   <h3>Leave a review</h3>
 <br>
 <form action="/listings/<%= foundListing._id %>/reviews" method="POST">
@@ -41,6 +49,10 @@
     <br>
     <button type="submit">Submit</button>
 </form>
+    <% } else { %>
+        <p>Please <a href="/login">log in</a> to leave a review.</p>
+    <% } %>
+    <br>
 
     </form>
     <h1>All Reviews</h1>
@@ -48,6 +60,7 @@
     <% if (foundListing.review && foundListing.review.length > 0) { %>
         <% foundListing.review.forEach(review => { %>
             <li>
+                <strong>Author:</strong> <%= review.author ? review.author.username : 'Anonymous' %> <br>
                 <strong>Rating:</strong> <%= review.rating %> <br>
                 <strong>Comment:</strong> <%= review.comment %>
                 <br>

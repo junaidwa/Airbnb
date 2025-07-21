@@ -14,12 +14,13 @@ const passport = require("passport");
 const User = require("./models/user"); // Import the User model
 const LocalStrategy = require("passport-local"); // Import the local strategy for authentication
 const passportLocalMongoose = require("passport-local-mongoose"); // Import passport-local-mongoose for user authentication
+// const user=require('./routes/user.js');
 
 app.use(cookieParser("SecretCodes")); // Middleware to parse cookies
 
 const listingRoute = require("./routes/listing"); // Import the listing routes
 const reviewsRoute = require("./routes/review"); // Import the review routes
-const userRouter=require('./routes/user.js');
+const userRouter = require("./routes/user.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -31,7 +32,6 @@ const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 app.use(flash()); // Use flash for temporary messages
-
 
 //Express Sesssion
 app.use(
@@ -47,18 +47,9 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  res.locals.success = req.flash("success"); // Make success messages available in views
-  res.locals.error = req.flash("error"); // Make success messages available in views
-  next();
-}); // Middleware to set flash messages
-
-
-
 app.get("/", (req, res) => {
   res.send("Welcome to Wanderlust API");
 });
-
 
 //Create Fake User
 app.get("/DemoUser", async (req, res) => {
@@ -71,13 +62,21 @@ app.get("/DemoUser", async (req, res) => {
   res.send(UserData);
 });
 
-
 // Passport Configuration
 app.use(passport.initialize()); // Initialize passport
 app.use(passport.session()); // Use passport session
 passport.use(new LocalStrategy(User.authenticate())); // Use local strategy for authentication
 passport.serializeUser(User.serializeUser()); // Serialize user for session
 passport.deserializeUser(User.deserializeUser()); // Deserialize user from session
+
+app.use((req, res, next) => {
+  console.log("Current user:", req.user); // Debug
+  res.locals.success = req.flash("success"); // Make success messages available in views
+  res.locals.error = req.flash("error"); // Make success messages available in views
+  res.locals.CurrentUser = req.user;
+
+  next();
+}); // Middleware to set flash messages
 
 const Mongo_URL = "mongodb://127.0.0.1:27017/Wanderlust";
 
@@ -93,13 +92,9 @@ async function main() {
   await mongoose.connect(Mongo_URL);
 }
 
-
 app.use("/listings", listingRoute); // Use the listing routes
 app.use("/listings/:id/reviews", reviewsRoute); // Use the review routes, with id from listing
-app.use('/',userRouter);
-
-
-
+app.use("/", userRouter);
 
 //flash message
 // app.use((req, res, next) => {

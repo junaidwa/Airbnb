@@ -47,12 +47,11 @@ const listingSchema = Joi.object({
             }),
 
         image: Joi.string()
-            .required()
+            .allow('')
+            .optional()
             .uri()
             .messages({
-                'string.empty': 'Image URL cannot be empty',
-                'string.uri': 'Image URL must be a valid URL',
-                'any.required': 'Image URL is required'
+                'string.uri': 'Image URL must be a valid URL when provided'
             })
     }).required()
 });
