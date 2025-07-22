@@ -32,10 +32,6 @@ router.get("/:id",WrapAsync(listingController.showListingInfo));
 
 router.post( "/", IsLoggedIn, upload.single('listing[image]'), WrapAsync(listingController.createListing));
 
-
-
-
-
 //Edit Route
 router.get("/:id/edit", IsLoggedIn, isOwner, WrapAsync(listingController.EditRoute ));
 
@@ -45,6 +41,7 @@ router.put(
   "/:id",
   IsLoggedIn,
   isOwner,
+  upload.single('listing[image]'),
   validateListing,
   WrapAsync(listingController.updateListing)
 );
