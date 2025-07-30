@@ -22,7 +22,7 @@ const listingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  category
+  
 });
 
 //When we delete listing then we want reviews also delete that post on given listing
